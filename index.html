@@ -19,20 +19,7 @@ body {
   overflow:hidden;
 }
 
-body::before {
-  content:"";
-  position:absolute;
-  width:200%;
-  height:200%;
-  background: linear-gradient(120deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-  animation: bgMove 20s linear infinite;
-}
-
-@keyframes bgMove {
-  from { transform: translate(0,0); }
-  to { transform: translate(-50%, -50%); }
-}
-
+/* 카드 */
 .card {
   position:relative;
   width:320px;
@@ -49,28 +36,7 @@ body::before {
   overflow:hidden;
 }
 
-.card::after {
-  content:"";
-  position:absolute;
-  top:-50%;
-  left:-50%;
-  width:200%;
-  height:200%;
-  background: linear-gradient(
-    120deg,
-    transparent 40%,
-    rgba(255,255,255,0.25) 50%,
-    transparent 60%
-  );
-  transform: rotate(25deg);
-  animation: shine 6s infinite;
-}
-
-@keyframes shine {
-  0% { transform: translateX(-100%) rotate(25deg); }
-  100% { transform: translateX(100%) rotate(25deg); }
-}
-
+/* 로고 */
 .logo-circle {
   width:90px;
   height:90px;
@@ -86,6 +52,7 @@ body::before {
   object-fit:cover;
 }
 
+/* 이름 */
 .name-box {
   display:inline-block;
   padding:6px 14px;
@@ -102,6 +69,7 @@ body::before {
   margin-bottom:18px;
 }
 
+/* 연락처 */
 .info {
   text-align:left;
   font-size:14px;
@@ -124,6 +92,7 @@ body::before {
   text-decoration:none;
 }
 
+/* 버튼 */
 .button-group {
   display:flex;
   flex-direction:column;
@@ -219,7 +188,7 @@ document.getElementById("telMobile").href = "tel:" + CONTACT.telMobile;
 document.getElementById("email").innerText = CONTACT.email;
 document.getElementById("email").href = "mailto:" + CONTACT.email;
 
-/* 버튼 기능 연결 */
+/* 버튼 기능 */
 document.getElementById("callBtn").href = "tel:" + CONTACT.telMobile;
 document.getElementById("smsBtn").href = "sms:" + CONTACT.telMobile;
 document.getElementById("mapBtn").href =
