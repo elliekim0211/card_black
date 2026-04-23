@@ -50,7 +50,7 @@ body::before {
   overflow:hidden;
 }
 
-/* 반사 */
+/* 🔥 반사 */
 .card::after {
   content:"";
   position:absolute;
@@ -73,15 +73,7 @@ body::before {
 
 .card:active { transform: scale(0.98); }
 
-/* 🔥 로고 동그라미 */
-.logo img {
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  object-fit:cover;
-  margin-bottom:18px;
-  border:2px solid rgba(255,255,255,0.3);
-}
+.logo img { width:140px; margin-bottom:18px; }
 
 .name-box {
   display:inline-block;
@@ -131,7 +123,9 @@ body::before {
 <div class="card">
 
   <div class="logo">
-    <img src="logo.png" id="logoImg">
+    <a href="http://www.e-pki.com/" target="_blank">
+      <img src="logo.png">
+    </a>
   </div>
 
   <div class="name-box">김경원 (金景媛)</div>
@@ -152,32 +146,15 @@ body::before {
 const USER_NAME = "Ellie Kim";
 document.getElementById("engName").innerText = USER_NAME;
 
-/* 🔥 이미지 → base64 변환 */
-async function getBase64Image() {
-  const img = document.getElementById("logoImg");
-  const canvas = document.createElement("canvas");
-  canvas.width = img.width;
-  canvas.height = img.height;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0);
-
-  return canvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, "");
-}
-
-async function saveContact() {
-  const base64Logo = await getBase64Image();
-
+function saveContact() {
   const vcard =
 `BEGIN:VCARD
 VERSION:3.0
-FN:${USER_NAME}
-N:Kim;Ellie;;;
+FN:PKI ${USER_NAME}
 ORG:PKI
-TITLE:Manager
 TEL;TYPE=WORK:+82313787590
 TEL;TYPE=CELL:+821020381341
 EMAIL:ellie.kim@e-pki.com
-PHOTO;ENCODING=b;TYPE=PNG:${base64Logo}
 END:VCARD`;
 
   const blob = new Blob([vcard], { type: "text/vcard" });
