@@ -184,6 +184,7 @@ button.btn {
   <div class="button-group">
     <button class="btn" onclick="saveContact()">📇 연락처 저장</button>
     <a href="#" id="callBtn" class="btn">📞 전화 걸기</a>
+    <a href="#" id="smsBtn" class="btn">💬 문자 보내기</a>
     <a href="http://www.e-pki.com/" target="_blank" class="btn">🌐 PKI 홈페이지</a>
   </div>
 
@@ -195,7 +196,7 @@ const CONTACT = {
   name: "Ellie Kim",
   firstName: "Ellie",
   lastName: "Kim",
-  title: "Specialist",
+  title: "Manager",
   telWork: "+82.31.378.7590",
   fax: "+82.31.378.7591",
   telMobile: "+82.10.2038.1341",
@@ -216,8 +217,11 @@ document.getElementById("telMobile").href = "tel:" + CONTACT.telMobile;
 document.getElementById("email").innerText = CONTACT.email;
 document.getElementById("email").href = "mailto:" + CONTACT.email;
 
+/* 버튼 연결 */
 document.getElementById("callBtn").href = "tel:" + CONTACT.telMobile;
+document.getElementById("smsBtn").href = "sms:" + CONTACT.telMobile;
 
+/* 연락처 저장 */
 function saveContact() {
   const vcard =
 `BEGIN:VCARD
