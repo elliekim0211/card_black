@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Premium Glass Card</title>
+<title>PKI Card</title>
 
 <style>
 * {margin:0;padding:0;box-sizing:border-box;
@@ -15,31 +15,26 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
-  background: linear-gradient(135deg, #2b2b2b, #4a4a4a, #2b2b2b);
+  background: linear-gradient(135deg, #2b2b2b, #4a4a4a);
+  color:#fff;
 }
 
 /* 카드 */
 .card {
-  width:90%;
-  max-width:360px;
-  padding:30px 20px;
-  border-radius:28px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(25px);
-  border:1px solid rgba(255,255,255,0.25);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  text-align:center;
-  color:#fff;
+  width:320px;
+  padding:25px;
+  border-radius:25px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
 }
 
 /* 로고 */
 .logo-circle {
-  width:90px;
-  height:90px;
+  width:80px;
+  height:80px;
   border-radius:50%;
   overflow:hidden;
-  margin:0 auto 18px;
-  border:2px solid rgba(255,255,255,0.3);
+  margin:0 auto 15px;
 }
 
 .logo-circle img {
@@ -50,53 +45,56 @@ body {
 
 /* 이름 */
 .name-box {
-  display:inline-block;
-  padding:6px 14px;
-  border-radius:12px;
-  background: linear-gradient(135deg, #ff7a00, #ff9a3c);
-  font-size:18px;
-  font-weight:600;
-  margin-bottom:6px;
+  text-align:center;
+  background:#ff7a00;
+  padding:6px 12px;
+  border-radius:10px;
+  margin-bottom:5px;
 }
 
 .eng {
-  font-size:16px;
+  text-align:center;
   color:#ff9a3c;
-  margin-bottom:20px;
+  margin-bottom:15px;
 }
 
-/* 버튼 그룹 */
-.button-group {
+/* 🔥 연락처 정보 */
+.info {
+  margin-bottom:20px;
+  line-height:2;
+  font-size:14px;
+}
+
+.info div {
   display:flex;
-  flex-direction:column;
-  gap:12px;
+  gap:8px;
+}
+
+.info strong {
+  width:18px;
+  color:#ddd;
+}
+
+.info a {
+  color:#fff;
+  text-decoration:none;
 }
 
 /* 버튼 */
-.btn {
+.button-group {
   display:flex;
-  align-items:center;
-  justify-content:center;
+  flex-direction:column;
   gap:10px;
-  width:100%;
-  padding:14px;
-  border-radius:16px;
-  border:none;
+}
+
+.btn {
+  padding:12px;
+  border-radius:14px;
   background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(10px);
+  text-align:center;
   color:#fff;
   text-decoration:none;
-  font-size:15px;
   cursor:pointer;
-  transition: all 0.2s ease;
-}
-
-.btn:hover {
-  background: rgba(255,255,255,0.3);
-}
-
-.btn:active {
-  transform: scale(0.96);
 }
 </style>
 </head>
@@ -109,76 +107,64 @@ body {
     <img src="logo.png" id="logoImg">
   </div>
 
-  <!-- 🔥 한글 이름 -->
   <div class="name-box" id="nameKo"></div>
-
-  <!-- 영어 이름 -->
   <div class="eng" id="engName"></div>
 
-  <!-- 버튼 -->
+  <!-- 🔥 연락처 정보 -->
+  <div class="info">
+    <div><strong>T:</strong> <a id="telWork"></a></div>
+    <div><strong>F:</strong> <span id="fax"></span></div>
+    <div><strong>M:</strong> <a id="telMobile"></a></div>
+    <div><strong>E:</strong> <a id="email"></a></div>
+  </div>
+
+  <!-- 🔥 버튼 -->
   <div class="button-group">
-
-    <button class="btn" onclick="saveContact()">
-      📇 연락처 저장
-    </button>
-
-    <a href="#" id="callBtn" class="btn">
-      📞 전화 걸기
-    </a>
-
-    <a href="http://www.e-pki.com/" target="_blank" class="btn">
-      🌐 PKI 홈페이지
-    </a>
-
+    <button class="btn" onclick="saveContact()">📇 연락처 저장</button>
+    <a href="#" id="callBtn" class="btn">📞 전화 걸기</a>
+    <a href="http://www.e-pki.com/" target="_blank" class="btn">🌐 PKI 홈페이지</a>
   </div>
 
 </div>
 
 <script>
-/* 🔥 직원 정보 (여기만 수정하면 됨) */
+/* 🔥 변수 (여기만 수정) */
 const CONTACT = {
   nameKo: "김경원 (金景媛)",
   name: "Ellie Kim",
   firstName: "Ellie",
   lastName: "Kim",
   title: "Manager",
-  telMobile: "+821020381341"
+  telWork: "+82313787590",
+  fax: "+82313787591",
+  telMobile: "+821020381341",
+  email: "ellie.kim@e-pki.com"
 };
 
-/* 화면 반영 */
+/* 🔥 화면 반영 */
 document.getElementById("nameKo").innerText = CONTACT.nameKo;
 document.getElementById("engName").innerText = CONTACT.name;
+
+/* 연락처 */
+const telWork = document.getElementById("telWork");
+telWork.innerText = CONTACT.telWork;
+telWork.href = "tel:" + CONTACT.telWork;
+
+document.getElementById("fax").innerText = CONTACT.fax;
+
+const telMobile = document.getElementById("telMobile");
+telMobile.innerText = CONTACT.telMobile;
+telMobile.href = "tel:" + CONTACT.telMobile;
+
+const email = document.getElementById("email");
+email.innerText = CONTACT.email;
+email.href = "mailto:" + CONTACT.email;
 
 /* 전화 버튼 */
 document.getElementById("callBtn").href = "tel:" + CONTACT.telMobile;
 
-/* 원형 이미지 base64 */
-async function getCircularBase64Image() {
-  const img = document.getElementById("logoImg");
-
-  const size = Math.min(img.naturalWidth, img.naturalHeight);
-  const canvas = document.createElement("canvas");
-  canvas.width = size;
-  canvas.height = size;
-
-  const ctx = canvas.getContext("2d");
-
-  ctx.beginPath();
-  ctx.arc(size/2, size/2, size/2, 0, Math.PI*2);
-  ctx.clip();
-
-  const sx = (img.naturalWidth - size) / 2;
-  const sy = (img.naturalHeight - size) / 2;
-
-  ctx.drawImage(img, sx, sy, size, size, 0, 0, size, size);
-
-  return canvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, "");
-}
-
-/* 연락처 저장 */
-async function saveContact() {
-  const base64Logo = await getCircularBase64Image();
-
+/* 🔥 vCard 저장 */
+function saveContact() {
   const vcard =
 `BEGIN:VCARD
 VERSION:3.0
@@ -186,8 +172,9 @@ FN:${CONTACT.name}
 N:${CONTACT.lastName};${CONTACT.firstName};;;
 ORG:PKI
 TITLE:${CONTACT.title}
+TEL;TYPE=WORK:${CONTACT.telWork}
 TEL;TYPE=CELL:${CONTACT.telMobile}
-PHOTO;ENCODING=b;TYPE=PNG:${base64Logo}
+EMAIL:${CONTACT.email}
 END:VCARD`;
 
   const blob = new Blob([vcard], { type: "text/vcard" });
