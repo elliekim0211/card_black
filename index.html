@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Premium Glass Card</title>
+
+<style>
+* {margin:0;padding:0;box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
+
+body {
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg, #2b2b2b, #4a4a4a, #2b2b2b);
+  overflow:hidden;
+}
+
+body::before {
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+  animation: bgMove 20s linear infinite;
+}
+
+@keyframes bgMove {
+  from { transform: translate(0,0); }
+  to { transform: translate(-50%, -50%); }
+}
+
+.card {
+  position:relative;
+  width:90%;
+  max-width:360px;
+  padding:30px 24px;
+  border-radius:28px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(25px);
+  border:1px solid rgba(255,255,255,0.25);
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  text-align:center;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* 🔥 반사 */
+.card::after {
+  content:"";
+  position:absolute;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background: linear-gradient(120deg,
+    transparent 40%,
+    rgba(255,255,255,0.25) 50%,
+    transparent 60%);
+  transform: rotate(25deg);
+  animation: shine 6s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(100%) rotate(25deg); }
+}
+
+.card:active { transform: scale(0.98); }
+
+.logo img { width:140px; margin-bottom:18px; }
+
+.name-box {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:12px;
+  background: linear-gradient(135deg, #ff7a00, #ff9a3c);
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.eng {
+  font-size:16px;
+  color:#ff9a3c;
+  margin-bottom:18px;
+}
+
+.info {
+  text-align:left;
+  font-size:14px;
+  line-height:2;
+}
+
+.info a {
+  color:#fff;
+  text-decoration:none;
+}
+
+.btn {
+  margin-top:15px;
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:none;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  color:#fff;
+  cursor:pointer;
+}
+
+.btn:active { transform: scale(0.96); }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <div class="logo">
+    <a href="https://www.e-pki.com" target="_blank">
+      <img src="logo.png">
+    </a>
+  </div>
+
+  <div class="name-box">김경원 (金景媛)</div>
+  <div class="eng" id="engName"></div>
+
+  <div class="info">
+    <div><strong>T:</strong> <a href="tel:+82313787590">+82.31.378.7590</a></div>
+    <div><strong>F:</strong> +82.31.378.7591</div>
+    <div><strong>M:</strong> <a href="tel:+821020381341">+82.10.2038.1341</a></div>
+    <div><strong>E:</strong> <a href="mailto:ellie.kim@e-pki.com">ellie.kim@e-pki.com</a></div>
+  </div>
+
+  <button class="btn" onclick="saveContact()">📇 연락처 저장</button>
+
+</div>
+
+<script>
+const USER_NAME = "Ellie Kim";
+document.getElementById("engName").innerText = USER_NAME;
+
+function saveContact() {
+  const vcard =
+`BEGIN:VCARD
+VERSION:3.0
+FN:PKI ${USER_NAME}
+ORG:PKI
+TEL;TYPE=WORK:+82313787590
+TEL;TYPE=CELL:+821020381341
+EMAIL:ellie.kim@e-pki.com
+END:VCARD`;
+
+  const blob = new Blob([vcard], { type: "text/vcard" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "PKI_contact.vcf";
+  link.click();
+}
+</script>
+
+</body>
+</html>
