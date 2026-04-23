@@ -50,7 +50,7 @@ body::before {
   overflow:hidden;
 }
 
-/* 🔥 반사 */
+/* 반사 */
 .card::after {
   content:"";
   position:absolute;
@@ -71,9 +71,24 @@ body::before {
   100% { transform: translateX(100%) rotate(25deg); }
 }
 
-.card:active { transform: scale(0.98); }
+/* 🔥 명함 로고 (원형) */
+.logo-circle {
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  overflow:hidden;
+  margin:0 auto 18px;
+  border:2px solid rgba(255,255,255,0.3);
+  box-shadow:
+    0 4px 15px rgba(0,0,0,0.4),
+    inset 0 1px 2px rgba(255,255,255,0.3);
+}
 
-.logo img { width:140px; margin-bottom:18px; }
+.logo-circle img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 
 .name-box {
   display:inline-block;
@@ -122,10 +137,8 @@ body::before {
 
 <div class="card">
 
-  <div class="logo">
-    <a href="http://www.e-pki.com/" target="_blank">
-      <img src="logo.png">
-    </a>
+  <div class="logo-circle">
+    <img src="logo.png" id="logoImg">
   </div>
 
   <div class="name-box">김경원 (金景媛)</div>
@@ -146,15 +159,48 @@ body::before {
 const USER_NAME = "Ellie Kim";
 document.getElementById("engName").innerText = USER_NAME;
 
-function saveContact() {
+/* 🔥 원형 마스킹 + base64 변환 */
+async function getCircularBase64Image() {
+  const img = document.getElementById("logoImg");
+
+  const size = Math.min(img.naturalWidth, img.naturalHeight);
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+
+  const ctx = canvas.getContext("2d");
+
+  // 원형 클리핑
+  ctx.beginPath();
+  ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+  ctx.closePath();
+  ctx.clip();
+
+  // 가운데 기준으로 잘라 넣기
+  const sx = (img.naturalWidth - size) / 2;
+  const sy = (img.naturalHeight - size) / 2;
+
+  ctx.drawImage(img, sx, sy, size, size, 0, 0, size, size);
+
+  return canvas
+    .toDataURL("image/png")
+    .replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+async function saveContact() {
+  const base64Logo = await getCircularBase64Image();
+
   const vcard =
 `BEGIN:VCARD
 VERSION:3.0
-FN:PKI ${USER_NAME}
+FN:${USER_NAME}
+N:Kim;Ellie;;;
 ORG:PKI
+TITLE:Manager
 TEL;TYPE=WORK:+82313787590
 TEL;TYPE=CELL:+821020381341
 EMAIL:ellie.kim@e-pki.com
+PHOTO;ENCODING=b;TYPE=PNG:${base64Logo}
 END:VCARD`;
 
   const blob = new Blob([vcard], { type: "text/vcard" });
