@@ -185,6 +185,7 @@ button.btn {
     <button class="btn" onclick="saveContact()">📇 연락처 저장</button>
     <a href="#" id="callBtn" class="btn">📞 전화 걸기</a>
     <a href="#" id="smsBtn" class="btn">💬 문자 보내기</a>
+    <a href="#" id="mapBtn" class="btn">📍 PKI 오시는 길</a>
     <a href="http://www.e-pki.com/" target="_blank" class="btn">🌐 PKI 홈페이지</a>
   </div>
 
@@ -200,7 +201,8 @@ const CONTACT = {
   telWork: "+82.31.378.7590",
   fax: "+82.31.378.7591",
   telMobile: "+82.10.2038.1341",
-  email: "ellie.kim@e-pki.com"
+  email: "ellie.kim@e-pki.com",
+  address: "화성시 동탄산단 10길 67"
 };
 
 document.getElementById("nameKo").innerText = CONTACT.nameKo;
@@ -217,9 +219,11 @@ document.getElementById("telMobile").href = "tel:" + CONTACT.telMobile;
 document.getElementById("email").innerText = CONTACT.email;
 document.getElementById("email").href = "mailto:" + CONTACT.email;
 
-/* 버튼 연결 */
+/* 버튼 기능 연결 */
 document.getElementById("callBtn").href = "tel:" + CONTACT.telMobile;
 document.getElementById("smsBtn").href = "sms:" + CONTACT.telMobile;
+document.getElementById("mapBtn").href =
+  "https://maps.google.com/?q=" + encodeURIComponent(CONTACT.address);
 
 /* 연락처 저장 */
 function saveContact() {
